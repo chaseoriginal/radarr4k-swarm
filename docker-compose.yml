@@ -1,27 +1,26 @@
----
 services:
   radarr4k:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr4k-swarm
     environment:
-      - PUID=1000
-      - PGID=33
-      - TZ=America/Chicago
+    - PUID=1000
+    - PGID=33
+    - TZ=America/Chicago
     volumes:
-      - radarr4k-swarm.config:/config
-      - /media/Multimedia/Movies:/movies 
-      - /media/Multimedia/Incoming/:/downloads
-
+    - radarr4k-swarm_radarr4k-swarm.config:/config
+    - /media/Multimedia/Movies:/movies
+    - /media/Multimedia/Incoming/:/downloads
     ports:
-      - target: 7878
-        published: 7879
-        protocol: tcp
-        mode: host        
+    - target: 7878
+      published: 7879
+      protocol: tcp
+      mode: host
     deploy:
       placement:
         constraints:
-          - node.labels.deployment.target.radarr4k == true
+        - node.labels.deployment.target.radarr4k == true
       restart_policy:
         condition: any
 volumes:
-  radarr4k-swarm.config:
+  radarr4k-swarm_radarr4k-swarm.config:
+    name: radarr4k-swarm_radarr4k-swarm.config
